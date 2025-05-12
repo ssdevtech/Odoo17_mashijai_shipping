@@ -35,6 +35,9 @@
         "views/booking_detail.xml",
         "views/trip_views.xml",
         "views/trip_details.xml",
+        
+        # --- Portal views ---
+        "views/portal_my_home.xml",
 
         # --- Website frontend ---
         "views/create_trip_form.xml",

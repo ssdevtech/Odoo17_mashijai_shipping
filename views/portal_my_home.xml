@@ -1,0 +1,18 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_mashijai" name="Portal My Home : MashiJai Shipping" inherit_id="portal.portal_my_home" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="trip_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Your Trips</t>
+                <t t-set="url" t-value="'/my/shipping/traveler'"/>
+                <t t-set="count" t-value="trip_count"/>
+            </t>
+            <t t-if="shipping_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Your Bookings</t>
+                <t t-set="url" t-value="'/my/shipping/customer'"/>
+                <t t-set="count" t-value="shipping_count"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

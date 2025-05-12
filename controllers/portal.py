@@ -8,6 +8,20 @@ _logger = logging.getLogger(__name__)
 
 class MashiJaiShippingPortal(CustomerPortal):
 
+    def _prepare_home_portal_values(self, counters):
+        values = super()._prepare_home_portal_values(counters)
+        partner = request.env.user.partner_id
+        
+        if 'trip_count' in counters:
+            values['trip_count'] = request.env['mashijai.shipping.trip'].sudo().search_count([
+                ('traveler_partner_id', '=', partner.id)
+            ])
+        if 'shipping_count' in counters:
+            values['shipping_count'] = request.env['mashijai.shipping.booking'].sudo().search_count([
+                ('requester_id', '=', partner.id)
+            ])
+        return values
+
     @http.route(['/my/shipping/traveler'], type='http', auth="user", website=True)
     def portal_traveler_dashboard(self, **kw):
         values = self._prepare_portal_layout_values()
