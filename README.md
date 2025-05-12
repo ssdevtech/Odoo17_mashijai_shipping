@@ -17,9 +17,6 @@ support@webTronex.ca
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/mashijai/mashijai_shipping /path/to/odoo/addons/mashijai_shipping
-
 # Install the module (via UI or command line)
 odoo -d yourdatabase -i mashijai_shipping
 ```
