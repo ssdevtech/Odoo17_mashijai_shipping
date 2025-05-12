@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="portal_my_home_mashijai" name="Portal My Home : MashiJai Shipping" inherit_id="portal.portal_my_home" priority="40">
