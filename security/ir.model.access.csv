@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shipping_trip_user,shipping.trip.user,model_mashijai_shipping_trip,group_mashijai_user,1,0,0,0
+access_shipping_trip_traveler,shipping.trip.traveler,model_mashijai_shipping_trip,group_mashijai_traveler,1,1,1,1
+access_shipping_trip_manager,shipping.trip.manager,model_mashijai_shipping_trip,group_mashijai_manager,1,1,1,1
+access_shipping_booking_user,shipping.booking.user,model_mashijai_shipping_booking,group_mashijai_user,1,1,1,0
+access_shipping_booking_traveler,shipping.booking.traveler,model_mashijai_shipping_booking,group_mashijai_traveler,1,1,1,1
+access_shipping_booking_manager,shipping.booking.manager,model_mashijai_shipping_booking,group_mashijai_manager,1,1,1,1
+

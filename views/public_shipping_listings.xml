@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- Public Shipping Listings (for /shipping/search) -->
+    <template id="public_shipping_listings" name="Public Shipping Listings">
+      <t t-call="website.layout">
+        <div class="container o_public_shipping_listings py-5">
+          <h1 class="mb-4">Available Shipping Trips</h1>
+          <!-- Search form -->
+          <form action="/shipping/search" method="get" class="mb-4">
+            <div class="row gy-2">
+              <div class="col-md-4">
+                <input type="text" name="departure_city" placeholder="Departure City"
+                       class="form-control" t-att-value="search_params.get('departure_city','')"/>
+              </div>
+              <div class="col-md-4">
+                <input type="text" name="destination_city" placeholder="Destination City"
+                       class="form-control" t-att-value="search_params.get('destination_city','')"/>
+              </div>
+              <div class="col-md-4">
+                <input type="date" name="date_from" placeholder="From" class="form-control"
+                       t-att-value="search_params.get('date_from','')"/>
+              </div>
+              <div class="col-md-4">
+                <input type="date" name="date_to" placeholder="To" class="form-control"
+                       t-att-value="search_params.get('date_to','')"/>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" class="btn btn-primary w-100">Search Trips</button>
+              </div>
+            </div>
+          </form>
+          <!-- Listing Results -->
+          <t t-if="trips">
+            <div class="row gy-4" id="o_shipping_trip_list">
+              <t t-foreach="trips" t-as="trip">
+                <div class="col-md-4">
+                  <div class="card h-100 o_listing_card">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">
+                        <i class="fa fa-plane me-2"/>
+                        <t t-esc="trip.departure_city"/> → <t t-esc="trip.destination_city"/>
+                      </h5>
+                      <p class="mb-1"><strong>Date:</strong> <t t-esc="trip.departure_date"/></p>
+                      <p class="mb-1"><strong>Available:</strong> <t t-esc="trip.remaining_kg"/> kg</p>
+                      <p><strong>Price:</strong> <t t-esc="trip.price"/> per kg</p>
+                      <!-- Traveler rating -->
+                      <div t-if="trip.traveler_rating_avg > 0" class="o_traveler_rating mt-2">
+                        <div class="o_rating_star_card">
+                          <t t-foreach="range(1, 6)" t-as="i">
+                            <i t-attf-class="fa fa-star#{'' if trip.traveler_rating_avg >= i else '-o'}" aria-hidden="true"></i>
+                          </t>
+                          <span class="ms-2 text-muted">
+                            (<t t-esc="round(trip.traveler_rating_avg, 1)"/>, <t t-esc="trip.traveler_rating_count"/> ratings)
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer bg-white text-center">
+                      <div class="btn-group">
+                        <a t-att-href="'/shipping/trip/%s' % trip.id" class="btn btn-sm btn-outline-secondary">
+                          View Details
+                        </a>
+                        <t t-if="user_id._is_public()">
+                          <a href="/web/login" class="btn btn-sm btn-outline-primary">Login to Book</a>
+                        </t>
+                        <t t-else="">
+                          <a t-att-href="'/my/shipping/book/%s' % trip.id" class="btn btn-sm btn-primary">
+                            Book Now
+                          </a>
+                        </t>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info text-center">
+              <p>No trips found matching your search criteria.</p>
+            </div>
+          </t>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

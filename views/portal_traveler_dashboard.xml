@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- Traveler Dashboard page -->
+    <template id="portal_traveler_dashboard" name="MashiJai Shipping – Traveler Dashboard">
+      <t t-call="portal.portal_layout">
+        <!-- tell the layout which tab we're on -->
+        <t t-set="page_name" t-value="'traveler_dashboard'"/>
+        <div class="o_portal_content col-12 col-lg-8 mb-5">
+          <h2 class="mb-4">My Trips</h2>
+          <div class="list-group">
+            <!-- Loop over trips -->
+            <t t-foreach="trips" t-as="trip">
+              <a t-att-href="'/my/shipping/trip/%s/requests' % trip.id"
+                 class="list-group-item list-group-item-action mb-2">
+                <div class="d-flex justify-content-between">
+                  <strong>
+                    <t t-esc="trip.departure_city"/> → <t t-esc="trip.destination_city"/>
+                  </strong>
+                  <span><t t-esc="trip.departure_date"/></span>
+                </div>
+                <small>
+                  Space: <t t-esc="trip.remaining_kg"/> kg – Price: <t t-esc="trip.price"/> / kg
+                </small>
+              </a>
+            </t>
+            <!-- If no trips -->
+            <t t-if="not trips">
+              <p class="text-center text-muted my-4">
+                You haven’t created any trips yet.
+              </p>
+            </t>
+          </div>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

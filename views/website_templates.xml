@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="mashijai_shipping.homepage_inherit"
+              inherit_id="website.homepage"
+              name="MashiJai Shipping – Homepage with Search">
+      <xpath expr="//div[@id='wrap']" position="inside">
+        <div class="container my-5">
+          <!-- 1) Search form -->
+          <form action="/shipping/search" method="get"
+                class="row gx-2 gy-2 justify-content-center mb-5">
+            <div class="col-auto">
+              <input type="text" name="departure_city" placeholder="From"
+                     class="form-control"
+                     t-att-value="(search_params or {}).get('departure_city','')"/>
+            </div>
+            <div class="col-auto">
+              <input type="text" name="destination_city" placeholder="To"
+                     class="form-control"
+                     t-att-value="(search_params or {}).get('destination_city','')"/>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="date_from" class="form-control"
+                     t-att-value="(search_params or {}).get('date_from','')"/>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="date_to" class="form-control"
+                     t-att-value="(search_params or {}).get('date_to','')"/>
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">Search Trips</button>
+            </div>
+          </form>
+
+          <!-- 2) Listings or “no trips” message -->
+          <t t-if="trips">
+            <div class="row gy-4">
+              <t t-foreach="trips" t-as="trip">
+                <div class="col-md-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <t t-esc="trip.departure_city"/> → <t t-esc="trip.destination_city"/>
+                      </h5>
+                      <p>Date: <t t-esc="trip.departure_date"/></p>
+                      <p>Space: <t t-esc="trip.remaining_kg"/> kg</p>
+                      <p>Price: <t t-esc="trip.price"/> / kg</p>
+                    </div>
+                    <div class="card-footer text-center">
+                      <t t-if="user_id.has_group('base.group_public')">
+                        <a href="/web/login" class="btn btn-outline-primary">Login to Book</a>
+                      </t>
+                      <t t-else="">
+                        <a t-att-href="'/my/shipping/book/%s' % trip.id"
+                           class="btn btn-primary">Book Now</a>
+                      </t>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </t>
+          <t t-if="not trips">
+            <p class="text-center text-muted">
+              No trips found. Try a different search or create one!
+            </p>
+          </t>
+        </div>
+      </xpath>
+    </template>
+  </data>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="my_shipping_bookings" name="My Shipping Bookings">
+      <t t-call="portal.frontend_layout">
+        <div class="container o_portal_shipping_bookings">
+          <h1>My Shipping Bookings</h1>
+          <t t-if="bookings">
+            <div class="card"><div class="card-body">
+              <table class="table table-striped">
+                <thead><tr>
+                  <th>Booking Reference</th><th>Trip Details</th>
+                  <th>Weight</th><th>Total Cost</th><th>Status</th>
+                </tr></thead>
+                <tbody>
+                  <t t-foreach="bookings" t-as="booking">
+                    <tr>
+                      <td><t t-esc="booking.name"/></td>
+                      <td><t t-esc="booking.trip_id.departure_city"/> to <t t-esc="booking.trip_id.destination_city"/> (<t t-esc="booking.trip_id.departure_date"/>)</td>
+                      <td><t t-esc="booking.weight"/> kg</td>
+                      <td>$<t t-esc="round(booking.weight * booking.trip_id.price, 2)"/></td>
+                      <td>
+                        <span t-att-class="'badge badge-' + {'pending':'warning','accepted':'success','rejected':'danger','completed':'info'}[booking.state]">
+                          <t t-esc="booking.state.capitalize()"/>
+                        </span>
+                      </td>
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+            </div></div>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info text-center">
+              <p>You haven't made any bookings yet.</p>
+              <a href="/shipping/search" class="btn btn-primary mt-2">Browse Available Trips</a>
+            </div>
+          </t>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

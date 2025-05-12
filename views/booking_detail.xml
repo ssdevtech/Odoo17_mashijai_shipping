@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="user_booking_detail" name="Booking Detail">
+      <t t-call="portal.portal_layout">
+        <div class="container">
+          <h2>Booking Reference: <t t-esc="booking.name"/></h2>
+          <table class="table">
+            <tr><th>Trip</th>
+              <td><t t-esc="booking.trip_id.departure_city"/> → <t t-esc="booking.trip_id.destination_city"/></td></tr>
+            <tr><th>Requester</th>
+              <td><t t-esc="booking.requester_id.name"/></td></tr>
+            <tr><th>Weight</th>
+              <td><t t-esc="booking.weight"/> kg</td></tr>
+            <tr><th>Unit Price</th>
+              <td><t t-esc="booking.trip_id.price"/> <t t-esc="booking.currency_id.symbol"/></td></tr>
+            <tr><th>Total Price</th>
+              <td><t t-esc="booking.total_price"/> <t t-esc="booking.currency_id.symbol"/></td></tr>
+            <tr><th>Status</th>
+              <td><t t-esc="booking.state"/></td></tr>
+          </table>
+          <h3>Actions</h3>
+          <t t-if="booking.state == 'accepted'">
+            <button type="button" disabled="disabled" class="btn btn-secondary">Await Delivery</button>
+          </t>
+          <t t-if="booking.state == 'completed'">
+<a t-att-href="'/my/shipping/rate_user?booking_id=' + str(booking.id)" class="btn btn-primary">
+    Rate User
+</a>
+
+          </t>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

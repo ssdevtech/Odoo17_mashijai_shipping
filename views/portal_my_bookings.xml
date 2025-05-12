@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="portal_my_bookings" inherit_id="portal.portal_layout" name="MashiJai Shipping – My Bookings">
+      <xpath expr="//div[contains(@t-attf-class, 'o_portal_content')]" position="replace">
+        <div t-attf-class="'o_portal_content col-12 col-lg-8 mb-5'">
+          <h2 class="mb-4">My Shipping Bookings</h2>
+          <t t-if="bookings">
+            <div class="list-group">
+              <t t-foreach="bookings" t-as="booking">
+                <div class="list-group-item">
+                  <h5>
+                    Trip 
+                    <t t-esc="booking.trip_id.departure_city"/> → 
+                    <t t-esc="booking.trip_id.destination_city"/>
+                  </h5>
+                  <p>Weight: <t t-esc="booking.weight"/> kg</p>
+                  <p>Status: <t t-esc="booking.state"/></p>
+                </div>
+              </t>
+            </div>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info">
+              You have no shipping bookings yet.
+            </div>
+          </t>
+        </div>
+      </xpath>
+    </template>
+  </data>
+</odoo>

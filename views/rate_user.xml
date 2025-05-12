@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="rate_user" inherit_id="portal.portal_layout"
+              name="MashiJai Shipping – Rate a User">
+      <xpath expr="//div[@id='wrap']//div//div[2]/div[1]" position="replace">
+        <div t-attf-class="'o_portal_content col-12 col-lg-8 mb-5'">
+          <h2 class="mb-4">Rate a User</h2>
+          <!-- User rating form goes here -->
+        </div>
+      </xpath>
+    </template>
+  </data>
+</odoo>

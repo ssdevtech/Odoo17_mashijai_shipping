@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="extended_shipping_listings" name="Extended Shipping Listings Search">
+      <t t-call="portal.frontend_layout">
+        <div class="container o_portal_shipping_listings">
+          <h1>Available Shipping Trips</h1>
+          <form action="/shipping/search" method="get" class="mb-4">
+            <div class="row">
+              <div class="col-md-3"><label>From City</label>
+                <input type="text" name="departure_city" class="form-control" placeholder="Departure City"
+                       t-att-value="search_params.get('departure_city','')"/></div>
+              <div class="col-md-3"><label>To City</label>
+                <input type="text" name="destination_city" class="form-control" placeholder="Destination City"
+                       t-att-value="search_params.get('destination_city','')"/></div>
+              <div class="col-md-3"><label>From Date</label>
+                <input type="date" name="date_from" class="form-control"
+                       t-att-value="search_params.get('date_from','')"/></div>
+              <div class="col-md-3"><label>To Date</label>
+                <input type="date" name="date_to" class="form-control"
+                       t-att-value="search_params.get('date_to','')"/></div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Search Trips</button>
+          </form>
+          <t t-if="trips">
+            <div class="row">
+              <t t-foreach="trips" t-as="trip">
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title"><t t-esc="trip.departure_city"/> to <t t-esc="trip.destination_city"/></h5>
+                      <p class="card-text">
+                        Departure Date: <t t-esc="trip.departure_date"/><br/>
+                        Available Capacity: <t t-esc="trip.remaining_kg"/> kg<br/>
+                        Price: $<t t-esc="trip.price"/> per kg
+                      </p>
+                      <a t-att-href="'/my/shipping/book/%s' % trip.id" class="btn btn-primary">Book Trip</a>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info">No shipping trips available matching your search criteria.</div>
+          </t>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

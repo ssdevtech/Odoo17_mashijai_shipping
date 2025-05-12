@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+  <!-- Tree View -->
+  <record id="view_mashijai_shipping_trip_tree" model="ir.ui.view">
+    <field name="name">mashijai.shipping.trip.tree</field>
+    <field name="model">mashijai.shipping.trip</field>
+    <field name="arch" type="xml">
+      <tree string="Shipping Trips">
+        <field name="name"/>
+        <field name="traveler_partner_id"/>
+        <field name="departure_city"/>
+        <field name="destination_city"/>
+        <field name="departure_date"/>
+        <field name="capacity_kg"/>
+        <field name="remaining_kg"/>
+        <field name="price"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form View -->
+  <record id="view_mashijai_shipping_trip_form" model="ir.ui.view">
+    <field name="name">mashijai.shipping.trip.form</field>
+    <field name="model">mashijai.shipping.trip</field>
+    <field name="arch" type="xml">
+      <form string="Shipping Trip" create="true" edit="true">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="traveler_partner_id"/>
+            <field name="departure_city"/>
+            <field name="destination_city"/>
+            <field name="departure_date"/>
+            <field name="capacity_kg"/>
+            <field name="remaining_kg" readonly="1"/>
+            <field name="price"/>
+            <field name="currency_id"/>
+            <field name="state"/>
+          </group>
+
+          <notebook>
+            <page string="Bookings">
+              <field name="booking_ids">
+                <tree editable="bottom">
+                  <field name="name"/>
+                  <field name="weight"/>
+                  <field name="total_price"/>
+                  <field name="requester_id"/>
+                </tree>
+              </field>
+            </page>
+
+            <page string="Ratings">
+              <group>
+                <field name="traveler_rating_avg" readonly="1"/>
+                <field name="traveler_rating_count" readonly="1"/>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids"/>
+              <field name="activity_ids"/>
+              <field name="message_ids"/>
+          </div>
+      </form>
+    </field>
+  </record>
+  <!-- Window Action -->
+  <record id="action_mashijai_shipping_trip" model="ir.actions.act_window">
+    <field name="name">Trips</field>
+    <field name="res_model">mashijai.shipping.trip</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Create and manage traveler trips.
+      </p>
+    </field>
+  </record>
+
+    <record id="action_mashijai_shipping_booking" model="ir.actions.act_window">
+      <field name="name">Bookings</field>
+      <field name="res_model">mashijai.shipping.booking</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Manage all shipping bookings.
+        </p>
+      </field>
+    </record>
+  
+    <!-- Main “MashiJai Shipping” menu -->
+    <menuitem id="menu_mashijai_operations" name="MashiJai Shipping" sequence="10"/>
+
+    <!-- Sub-menus -->
+    <menuitem id="menu_mashijai_trips" name="Trips"
+              parent="menu_mashijai_operations"
+              action="action_mashijai_shipping_trip"
+              sequence="15"/>
+
+    <menuitem id="menu_mashijai_bookings" name="Bookings"
+              parent="menu_mashijai_operations"
+              action="action_mashijai_shipping_booking"
+              sequence="20"/>
+  
+  </data>
+</odoo>

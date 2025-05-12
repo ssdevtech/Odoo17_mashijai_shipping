@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="portal_shipping_dashboard" inherit_id="portal.portal_layout"
+              name="MashiJai Shipping – Dashboard">
+      <xpath expr="//div[@id='wrap']//div//div[2]/div[1]" position="replace">
+        <div t-attf-class="'o_portal_content col-12 col-lg-8 mb-5'">
+          <h2 class="mb-4">Shipping Dashboard</h2>
+          <div class="row mb-4">
+            <div class="col">
+              <a href="/my/shipping/traveler" class="btn btn-primary">
+                Traveler Access
+              </a>
+            </div>
+            <div class="col">
+              <a href="/shipping/search" class="btn btn-secondary">
+                Ship with a Traveler
+              </a>
+            </div>
+          </div>
+          <!-- Traveler’s Trips -->
+          <t t-if="trips">
+            <h3>My Trips</h3>
+            <ul class="list-group mb-4">
+              <t t-foreach="trips" t-as="trip">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>
+                    <t t-esc="trip.departure_city"/> → <t t-esc="trip.destination_city"/>
+                    (<t t-esc="trip.remaining_kg"/> kg remaining)
+                  </span>
+                  <a t-att-href="'/my/shipping/trip/%s/requests' % trip.id"
+                     class="btn btn-link btn-sm">
+                    Manage
+                  </a>
+                </li>
+              </t>
+            </ul>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info mb-4">
+              You have no open trips.
+            </div>
+          </t>
+          <!-- Customer’s Bookings -->
+          <t t-if="bookings">
+            <h3>My Bookings</h3>
+            <ul class="list-group">
+              <t t-foreach="bookings" t-as="booking">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>
+                    <t t-esc="booking.trip_id.departure_city"/> → 
+                    <t t-esc="booking.trip_id.destination_city"/>
+                    (<t t-esc="booking.weight"/> kg)
+                  </span>
+                  <a t-att-href="'/my/bookings/%s' % booking.id"
+                     class="btn btn-link btn-sm">
+                    View
+                  </a>
+                </li>
+              </t>
+            </ul>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info">
+              You haven’t booked any trips yet.
+            </div>
+          </t>
+        </div>
+      </xpath>
+    </template>
+  </data>
+</odoo>

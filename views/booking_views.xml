@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <data>
+    <record id="view_mashijai_shipping_booking_tree" model="ir.ui.view">
+      <field name="name">mashijai.shipping.booking.tree</field>
+      <field name="model">mashijai.shipping.booking</field>
+      <field name="arch" type="xml">
+        <tree string="Shipping Bookings" decoration-info="state == 'draft'" decoration-warning="state == 'pending'" decoration-success="state == 'accepted'" decoration-danger="state == 'rejected'">
+          <field name="name"/>
+          <field name="trip_id"/>
+          <field name="requester_id"/>
+          <field name="weight"/>
+          <field name="currency_id" invisible="1"/>
+          <field name="total_price" widget="monetary"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    <record id="view_mashijai_shipping_booking_form" model="ir.ui.view">
+      <field name="name">mashijai.shipping.booking.form</field>
+      <field name="model">mashijai.shipping.booking</field>
+      <field name="arch" type="xml">
+        <form string="Shipping Booking">
+          <header>
+            <button name="action_submit" string="Submit" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+            <button name="action_accept" string="Accept" type="object" class="oe_highlight" invisible="state != 'pending'"/>
+            <button name="action_reject" string="Reject" type="object" invisible="state != 'pending'"/>
+            <button name="action_cancel" string="Cancel" type="object" invisible="state in ['draft', 'pending']"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,pending,accepted,completed"/>
+          </header>
+          <sheet>
+            <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+            <group>
+              <group>
+                <field name="trip_id"/>
+                <field name="requester_id"/>
+                <field name="weight"/>
+              </group>
+              <group>
+                <field name="currency_id" invisible="1"/>
+                <field name="unit_price" widget="monetary"/>
+                <field name="total_price" widget="monetary"/>
+                <field name="state" invisible="1"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Description"><field name="description"/></page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids"/>
+            <field name="message_ids"/>
+          </div>
+        </form>
+      </field>
+    </record>
+    <record id="action_mashijai_shipping_booking" model="ir.actions.act_window">
+      <field name="name">Shipping Bookings</field>
+      <field name="res_model">mashijai.shipping.booking</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Create your first shipping booking</p>
+      </field>
+    </record>
+    <menuitem id="menu_mashijai_bookings" name="Bookings" parent="menu_mashijai_operations" action="action_mashijai_shipping_booking" sequence="20"/>
+  </data>
+</odoo>

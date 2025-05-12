@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="portal_traveler_access" name="Traveler Access Required">
+      <t t-call="portal.portal_layout">
+        <div class="container py-5 text-center">
+          <h1>Access Denied</h1>
+          <p>You need the "Traveler" role to create shipping trips.</p>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

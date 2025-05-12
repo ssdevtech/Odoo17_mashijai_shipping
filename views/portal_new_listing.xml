@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="portal_new_listing" name="Create New Shipping Listing">
+      <t t-call="portal.frontend_layout">
+        <div class="container o_portal_shipping_new_listing">
+          <h1>Create New Shipping Trip</h1>
+          <form action="/my/shipping/trips/create" method="post">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="form-group"><label for="departure_city">Departure City</label>
+              <input type="text" name="departure_city" class="form-control" required=""/></div>
+            <div class="form-group"><label for="destination_city">Destination City</label>
+              <input type="text" name="destination_city" class="form-control" required=""/></div>
+            <div class="form-group"><label for="departure_date">Departure Date</label>
+              <input type="date" name="departure_date" class="form-control" required=""/></div>
+            <div class="form-group"><label for="capacity_kg">Total Capacity (kg)</label>
+              <input type="number" name="capacity_kg" class="form-control" step="0.1" min="0" required=""/></div>
+            <div class="form-group"><label for="price">Price per kg ($)</label>
+              <input type="number" name="price" class="form-control" step="0.01" min="0" required=""/></div>
+            <button type="submit" class="btn btn-primary">Create Trip</button>
+            <a href="/my/shipping/trips" class="btn btn-secondary ml-2">Cancel</a>
+          </form>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

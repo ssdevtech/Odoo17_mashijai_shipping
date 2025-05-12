@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="manage_listings" inherit_id="portal.portal_layout"
+              name="MashiJai Shipping – Manage My Listings">
+      <xpath expr="//div[@id='wrap']//div//div[2]/div[1]" position="replace">
+        <div t-attf-class="'o_portal_content col-12 col-lg-8 mb-5'">
+          <h2 class="mb-4">
+            Requests for 
+            <t t-esc="trip.departure_city"/> → <t t-esc="trip.destination_city"/>
+          </h2>
+          <t t-if="bookings">
+            <div class="list-group">
+              <t t-foreach="bookings" t-as="booking">
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between">
+                    <strong>Booking #</strong><t t-esc="booking.id"/>
+                    <small><t t-esc="booking.create_date"/></small>
+                  </div>
+                  <p>Requester: <t t-esc="booking.requester_id.name"/></p>
+                  <p>Weight: <t t-esc="booking.weight"/> kg</p>
+                  <p>Status: <t t-esc="booking.state"/></p>
+                </div>
+              </t>
+            </div>
+          </t>
+          <t t-else="">
+            <div class="alert alert-info">
+              No requests for this trip yet.
+            </div>
+          </t>
+        </div>
+      </xpath>
+    </template>
+  </data>
+</odoo>

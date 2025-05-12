@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- 20 demo trips between July 2025–July 2026 -->
+  <!-- Copy-paste all <record> entries below from your downloaded demo sources -->
+  <!-- For example: -->
+  <record id="demo_trip_1" model="mashijai.shipping.trip">
+    <field name="traveler_partner_id" ref="base.user_admin"/>
+    <field name="departure_city">Toronto</field>
+    <field name="destination_city">Cairo</field>
+    <field name="departure_date">2025-07-05</field>
+    <field name="capacity_kg">30.00</field>
+    <field name="price">12.50</field>
+    <field name="state">open</field>
+  </record>
+  <!-- … repeat through demo_trip_20 … -->
+</odoo>
